@@ -12,12 +12,12 @@ export class UsersService {
   ) {}
 
   async findMany(): Promise<UserDocument[]> {
-    const users = await this.userModel.find().exec();
+    const users = await this.userModel.find();
     return users;
   }
 
   async findOneById(id: string): Promise<UserDocument | null> {
-    const user = await this.userModel.findById(id).exec();
+    const user = await this.userModel.findById(id);
     return user;
   }
 

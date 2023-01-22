@@ -1,0 +1,14 @@
+version: '3.6'
+services:
+  mongodb_container:
+    image: mongo:6.0.3
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    ports:
+      - ${MONGO_INITDB_ROOT_PORT}:27017
+    volumes:
+      - mongodb_data_container:/data/db
+
+volumes:
+  mongodb_data_container:
