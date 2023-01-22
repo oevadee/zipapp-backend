@@ -11,22 +11,31 @@ export class UsersService {
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
   ) {}
 
-  async findMany(): Promise<User[]> {
+  async findMany(): Promise<UserDocument[]> {
     const users = await this.userModel.find().exec();
     return users;
   }
 
-  async findOne(id: string): Promise<User | null> {
+  async findOneById(id: string): Promise<UserDocument | null> {
     const user = await this.userModel.findById(id).exec();
     return user;
   }
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
-    const newUser = new this.userModel(createUserDto);
-    return newUser.save();
+  async findOneByEmail(email: string): Promise<UserDocument | null> {
+    const user = await this.userModel.findOne({ email });
+    return user;
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto): Promise<User | null> {
+  async create(createUserDto: CreateUserDto): Promise<UserDocument> {
+    const newUser = new this.userModel(createUserDto);
+    newUser.save();
+    return newUser;
+  }
+
+  async update(
+    id: string,
+    updateUserDto: UpdateUserDto,
+  ): Promise<UserDocument | null> {
     const user = await this.userModel.findByIdAndUpdate(id, updateUserDto);
     return user;
   }
