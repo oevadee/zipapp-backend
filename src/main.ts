@@ -12,7 +12,7 @@ async function bootstrap() {
     .setTitle('Zipapp v3 API')
     .setDescription('API v3 for zipapp')
     .setVersion('1.0')
-    .addTag('cats')
+    .addTag('zipapp')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);
