@@ -5,15 +5,18 @@ import {
   HttpStatus,
   Post,
 } from '@nestjs/common';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { SigninDto } from './dto/signin.dto';
 import { SignupDto } from './dto/signup.dto';
 
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('signin')
+  @ApiOperation({ summary: 'Login into your account' })
   signin(@Body() dto: SigninDto) {
     try {
       return this.authService.signin(dto);
@@ -32,6 +35,7 @@ export class AuthController {
   }
 
   @Post('signup')
+  @ApiOperation({ summary: 'Create new account' })
   signup(@Body() dto: SignupDto) {
     try {
       return this.authService.signup(dto);
