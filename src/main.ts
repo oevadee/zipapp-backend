@@ -8,6 +8,8 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.use(logger);
+  app.enableCors();
+
   const config = new DocumentBuilder()
     .setTitle('Zipapp v3 API')
     .setDescription('API v3 for zipapp')
