@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { saltOrRounds } from 'src/constants/auth';
+import { bcryptRounds } from 'src/constants/auth';
+import { comparePassword } from 'src/utils/bcrypt';
 import { UsersService } from '../users/users.service';
 import { SigninDto } from './dto/signin.dto';
 import { SignupDto } from './dto/signup.dto';
@@ -16,7 +17,7 @@ export class AuthService {
   async signin(dto: SigninDto) {
     const { email, password } = dto;
     const user = await this.usersService.findOneByEmail(email);
-    const isMatch = user && (await bcrypt.compare(password, user.password));
+    const isMatch = user && (await comparePassword(password, user.password));
     if (user && isMatch) {
       const payload = { email: dto.email, sub: user.id };
       return {

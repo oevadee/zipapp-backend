@@ -1,5 +1,3 @@
-export const jwtConstants = {
-  secret: 'secretKey',
-};
+export const jwtSecret = process.env.JWT_SECRET || 'mySecret';
 
-export const saltOrRounds = 10;
+export const bcryptRounds = process.env.BCRYPT_ROUNDS || 10;
