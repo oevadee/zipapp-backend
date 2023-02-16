@@ -13,17 +13,17 @@ export class UsersService {
   ) {}
 
   async findMany(): Promise<UserDocument[]> {
-    const users = await this.userModel.find();
+    const users = await this.userModel.find().select(['-password']);
     return users;
   }
 
   async findOneById(id: string): Promise<UserDocument | null> {
-    const user = await this.userModel.findById(id);
+    const user = await this.userModel.findById(id).select(['-password']);
     return user;
   }
 
   async findOneByEmail(email: string): Promise<UserDocument | null> {
-    const user = await this.userModel.findOne({ email });
+    const user = await this.userModel.findOne({ email }).select(['-password']);
     return user;
   }
 
@@ -41,7 +41,9 @@ export class UsersService {
     id: string,
     updateUserDto: UpdateUserDto,
   ): Promise<UserDocument | null> {
-    const user = await this.userModel.findByIdAndUpdate(id, updateUserDto);
+    const user = await this.userModel
+      .findByIdAndUpdate(id, updateUserDto)
+      .select(['-password']);
     return user;
   }
 
