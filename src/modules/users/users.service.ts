@@ -18,12 +18,12 @@ export class UsersService {
   }
 
   async findOneById(id: string): Promise<UserDocument | null> {
-    const user = await this.userModel.findById(id).select(['-password']);
+    const user = await this.userModel.findById(id);
     return user;
   }
 
   async findOneByEmail(email: string): Promise<UserDocument | null> {
-    const user = await this.userModel.findOne({ email }).select(['-password']);
+    const user = await this.userModel.findOne({ email });
     return user;
   }
 
